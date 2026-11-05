@@ -1,0 +1,10 @@
+# CI runs on the Python standard library only: the tests and the
+# deterministic runners use the fake backend, which needs no packages.
+# This file exists so Dependabot pip updates have a manifest to watch.
+# The real backend path is different and is NOT installed in CI:
+# level-2-build/server.py (TransformersBackend) and
+# level-3-deep/run_quant.py import torch and transformers (and the
+# quantized routes use bitsandbytes) on the GPU node (BlackBox), where
+# those packages are installed locally. They are deliberately not
+# pinned here, because CI never imports them.
+# If a real CI dependency is ever added, it is pinned here.
