@@ -40,6 +40,39 @@ Project: P03. Fleet node: BlackBox (GPU). Wave: Wave 3.
 
 PROPOSED. See NOVELTY.md. The novelty text is a draft until the Jev claim_check gate passes on it.
 
+## Fan-out
+
+Written fan-out set for v1.0, dated 2026-11-05, in fanout/. Status
+check: Learn, Build, and Deep are all DONE at v1.0 (this corrects
+any earlier scaffold-era wording that listed Deep as pending).
+Level grades on record: Learn 8,400 of 10,000, Build 8,000 of
+10,000, Deep 7,600 of 10,000. Deep headline result, from
+level-3-deep/README.md: the quantized comparison at budget 384 on
+the same 10 questions scored FP16 8 of 10 at 55.94 tokens per
+second, INT8 6 of 10 at 10.60 tokens per second, and INT4 NF4
+5 of 10 at 32.36 tokens per second. Tests: 49 in total (20 Learn,
+15 Build, 14 Deep), all passing.
+
+- fanout/blog-post.md: the full story, with the main results claim
+  and the honest limits.
+- fanout/tutorial.md: course module P03-vllm-serving-lab. Every
+  command in it was run and verified on 2026-11-05; the GPU-node
+  results are labelled as recorded results, not local commands.
+- fanout/website-page.md: project page copy for jesunahmadushno.com
+  (copy only, not published).
+- fanout/linkedin-post.md: LinkedIn draft, marked DRAFT NOT POSTED,
+  with the link carried as the first-comment line.
+- fanout/paper-candidate.md: brief for the existing CANDIDATE
+  tracker row, "Inference optimisation on consumer hardware
+  paper". Submission is Jesun's tap; nothing is submitted.
+- fanout/release-notes.md: draft notes for the existing releases
+  v0.1, v0.5, and v1.0.
+
+Channel outcomes and per-piece publicity grades (1,000-point
+rubric, ship line 900; overall fan-out grade 9,567 of 10,000) are
+logged in PUBLICITY.md. Drafts are prepared by the loop; the loop
+itself never posts to social, and Threads waits for Jesun's tap.
+
 ## License
 
 Code: Apache-2.0 (see LICENSE). Tutorials: CC BY 4.0. Ruled in D-V3-11, 2026-11-04.
