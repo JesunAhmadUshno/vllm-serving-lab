@@ -10,9 +10,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "level-2-build"))
 sys.path.insert(0, os.path.join(ROOT, "level-1-learn"))
 
-import load_test
-import server as server_mod
-import study
+import load_test  # noqa: E402
+import server as server_mod  # noqa: E402
+import study  # noqa: E402
 
 
 def post(base, path, payload):

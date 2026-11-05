@@ -11,8 +11,8 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "level-3-deep"))
 
-import quant_compare as qc
-import run_quant
+import quant_compare as qc  # noqa: E402
+import run_quant  # noqa: E402
 
 
 def load_questions():
