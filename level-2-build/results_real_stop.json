@@ -1,0 +1,287 @@
+{
+  "backend": "transformers",
+  "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+  "device": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "stop_final_answer": true,
+  "budgets": {
+    "32": {
+      "questions": 10,
+      "correct": 0,
+      "accuracy": 0.0,
+      "completion_tokens": 320,
+      "tokens_per_correct": null,
+      "seconds_per_correct": null,
+      "_seconds_total": 8.034
+    },
+    "128": {
+      "questions": 10,
+      "correct": 0,
+      "accuracy": 0.0,
+      "completion_tokens": 1280,
+      "tokens_per_correct": null,
+      "seconds_per_correct": null,
+      "_seconds_total": 29.291
+    },
+    "384": {
+      "questions": 10,
+      "correct": 8,
+      "accuracy": 0.8,
+      "completion_tokens": 2522,
+      "tokens_per_correct": 315.25,
+      "seconds_per_correct": 8.124,
+      "_seconds_total": 64.992
+    }
+  },
+  "rows": [
+    {
+      "budget": 32,
+      "question_id": "q01",
+      "expected": 4.25,
+      "extracted": 2.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q02",
+      "expected": 78,
+      "extracted": null,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q03",
+      "expected": 74.8,
+      "extracted": 1.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q04",
+      "expected": 4,
+      "extracted": 15.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q05",
+      "expected": 8,
+      "extracted": null,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q06",
+      "expected": 1102.5,
+      "extracted": 2.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q07",
+      "expected": 42,
+      "extracted": 30.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q08",
+      "expected": 20,
+      "extracted": 60.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q09",
+      "expected": 10,
+      "extracted": 1.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 32,
+      "question_id": "q10",
+      "expected": 6,
+      "extracted": 5.0,
+      "correct": false,
+      "completion_tokens": 32
+    },
+    {
+      "budget": 128,
+      "question_id": "q01",
+      "expected": 4.25,
+      "extracted": 13.5,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q02",
+      "expected": 78,
+      "extracted": 3.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q03",
+      "expected": 74.8,
+      "extracted": 3.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q04",
+      "expected": 4,
+      "extracted": 60.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q05",
+      "expected": 8,
+      "extracted": 6.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q06",
+      "expected": 1102.5,
+      "extracted": 1.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q07",
+      "expected": 42,
+      "extracted": 20.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q08",
+      "expected": 20,
+      "extracted": 15.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q09",
+      "expected": 10,
+      "extracted": 50.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 128,
+      "question_id": "q10",
+      "expected": 6,
+      "extracted": 5.0,
+      "correct": false,
+      "completion_tokens": 128
+    },
+    {
+      "budget": 384,
+      "question_id": "q01",
+      "expected": 4.25,
+      "extracted": 4.25,
+      "correct": true,
+      "completion_tokens": 203
+    },
+    {
+      "budget": 384,
+      "question_id": "q02",
+      "expected": 78,
+      "extracted": 78.0,
+      "correct": true,
+      "completion_tokens": 243
+    },
+    {
+      "budget": 384,
+      "question_id": "q03",
+      "expected": 74.8,
+      "extracted": 61.2,
+      "correct": false,
+      "completion_tokens": 236
+    },
+    {
+      "budget": 384,
+      "question_id": "q04",
+      "expected": 4,
+      "extracted": 4.0,
+      "correct": true,
+      "completion_tokens": 245
+    },
+    {
+      "budget": 384,
+      "question_id": "q05",
+      "expected": 8,
+      "extracted": 8.0,
+      "correct": true,
+      "completion_tokens": 190
+    },
+    {
+      "budget": 384,
+      "question_id": "q06",
+      "expected": 1102.5,
+      "extracted": 1102.5,
+      "correct": true,
+      "completion_tokens": 326
+    },
+    {
+      "budget": 384,
+      "question_id": "q07",
+      "expected": 42,
+      "extracted": 42.0,
+      "correct": true,
+      "completion_tokens": 254
+    },
+    {
+      "budget": 384,
+      "question_id": "q08",
+      "expected": 20,
+      "extracted": 20.0,
+      "correct": true,
+      "completion_tokens": 215
+    },
+    {
+      "budget": 384,
+      "question_id": "q09",
+      "expected": 10,
+      "extracted": 10.0,
+      "correct": true,
+      "completion_tokens": 226
+    },
+    {
+      "budget": 384,
+      "question_id": "q10",
+      "expected": 6,
+      "extracted": 90.0,
+      "correct": false,
+      "completion_tokens": 384
+    }
+  ],
+  "load_test": {
+    "requests": 12,
+    "succeeded": 12,
+    "failed": 0,
+    "wall_seconds": 31.004,
+    "requests_per_second": 0.387,
+    "completion_tokens_per_second": 49.54,
+    "p50_latency_seconds": 10.2331,
+    "p95_latency_seconds": 10.5925
+  }
+}
