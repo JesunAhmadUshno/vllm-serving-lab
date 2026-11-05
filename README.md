@@ -2,7 +2,7 @@
 
 LLM inference and serving, expanded in v3 to an inference optimisation lab: vLLM and SGLang, speculative decoding, KV-cache study, one benchmark harness.
 
-Status: Learn DONE, 2026-11-05 (simulated on CPU, no real model served). Build DONE, 2026-11-05: a real open model (Qwen/Qwen2.5-0.5B-Instruct) served through an OpenAI-compatible API on BlackBox (RTX 5050), a thinking-budget study at three budgets, and a concurrent load test. The engine is Transformers on PyTorch, not vLLM (the node is Windows with no WSL); that substitution is named in level-2-build/README.md. Deep not started.
+Status: Learn DONE, Build DONE, Deep DONE, v1.0, 2026-11-05. Learn: simulated on CPU, no real model served. Build: a real open model (Qwen/Qwen2.5-0.5B-Instruct) served through an OpenAI-compatible API on BlackBox (RTX 5050), a thinking-budget study at three budgets, and a concurrent load test. Deep (compressed): a quantized-serving comparison, FP16 against bitsandbytes INT8 and INT4 NF4, same model, same 10 questions, budget 384, measured on BlackBox, plus the written thinking rule. The engine is Transformers on PyTorch, not vLLM (the node is Windows with no WSL); that substitution is named in level-2-build/README.md and stays the largest grade deduction. The rest of the v2 Deep scope is the v1.1 backlog in ROADMAP.md.
 Project: P03. Fleet node: BlackBox (GPU). Wave: Wave 3.
 
 ## Start here
@@ -31,6 +31,10 @@ Project: P03. Fleet node: BlackBox (GPU). Wave: Wave 3.
 | Build: stop rule at the Final answer line (measured experiment) | never fired: the model ends with a boxed value or prose, not the instructed line; tokens per correct unchanged at 315.25 |
 | Build: load test, 12 requests, concurrency 4, max 128 tokens | 12 of 12 succeeded, 0.477 requests per second, 61.05 completion tokens per second, p50 8.2146 s, p95 9.0854 s |
 | Build: unit tests | 15 tests in tests/test_build_serving.py (API, streaming, usage math, extraction, study, load test), all passing |
+| Deep: quantized comparison, FP16 (real model, BlackBox RTX 5050, greedy, 10 questions, budget 384) | 8 of 10 correct, 2,522 completion tokens, 55.94 tokens per second, 996,322,304 GPU bytes after load |
+| Deep: quantized comparison, INT8 bitsandbytes load_in_8bit (same run) | 6 of 10 correct, 2,664 tokens, 10.60 tokens per second, 631,487,488 GPU bytes after load (36.62 percent smaller than FP16) |
+| Deep: quantized comparison, INT4 bitsandbytes load_in_4bit NF4 (same run) | 5 of 10 correct, 1,302 tokens, 32.36 tokens per second, 473,807,872 GPU bytes after load (52.44 percent smaller than FP16) |
+| Deep: unit tests | 14 tests in tests/test_deep_quant.py (extraction, summary math, comparison deltas, fake run, error lines), all passing |
 
 ## Novelty
 
