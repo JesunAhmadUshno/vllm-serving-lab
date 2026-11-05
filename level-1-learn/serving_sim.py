@@ -7,7 +7,6 @@ Stdlib only.
 """
 from dataclasses import dataclass
 
-
 BLOCK_SIZE_TOKENS = 16
 CONTIGUOUS_SLAB_TOKENS = 256
 TOKENS_PER_STEP = 32
