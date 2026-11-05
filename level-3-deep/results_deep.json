@@ -1,0 +1,290 @@
+{
+  "backend": "fake-quant",
+  "budget": 384,
+  "comparison": [
+    {
+      "accuracy": 0.9,
+      "accuracy_delta_vs_fp16": null,
+      "completion_tokens": 2000,
+      "completion_tokens_per_second": null,
+      "config": "fp16",
+      "correct": 9,
+      "gpu_bytes_after_load": null,
+      "label": "FP16 (torch_dtype float16, no quantization)",
+      "memory_saving_pct_vs_fp16": null,
+      "peak_gpu_bytes": null,
+      "throughput_ratio_vs_fp16": null,
+      "tokens_per_correct": 222.22
+    },
+    {
+      "accuracy": 0.8,
+      "accuracy_delta_vs_fp16": -0.1,
+      "completion_tokens": 2000,
+      "completion_tokens_per_second": null,
+      "config": "int8_bnb",
+      "correct": 8,
+      "gpu_bytes_after_load": null,
+      "label": "INT8 (bitsandbytes load_in_8bit)",
+      "memory_saving_pct_vs_fp16": null,
+      "peak_gpu_bytes": null,
+      "throughput_ratio_vs_fp16": null,
+      "tokens_per_correct": 250.0
+    },
+    {
+      "accuracy": 0.7,
+      "accuracy_delta_vs_fp16": -0.2,
+      "completion_tokens": 2000,
+      "completion_tokens_per_second": null,
+      "config": "int4_bnb_nf4",
+      "correct": 7,
+      "gpu_bytes_after_load": null,
+      "label": "INT4 (bitsandbytes load_in_4bit, NF4, compute float16)",
+      "memory_saving_pct_vs_fp16": null,
+      "peak_gpu_bytes": null,
+      "throughput_ratio_vs_fp16": null,
+      "tokens_per_correct": 285.71
+    }
+  ],
+  "note": "Deterministic fake run for CI mechanics only. Not a model result. Real measured rows are in results_quant.json.",
+  "rows": {
+    "fp16": [
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 4.25,
+        "extracted": 4.25,
+        "question_id": "q01"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 78,
+        "extracted": 78.0,
+        "question_id": "q02"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 74.8,
+        "extracted": 74.8,
+        "question_id": "q03"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 4,
+        "extracted": 4.0,
+        "question_id": "q04"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 8,
+        "extracted": 8.0,
+        "question_id": "q05"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 1102.5,
+        "extracted": 1102.5,
+        "question_id": "q06"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 42,
+        "extracted": 42.0,
+        "question_id": "q07"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 20,
+        "extracted": 20.0,
+        "question_id": "q08"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 10,
+        "extracted": 10.0,
+        "question_id": "q09"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": false,
+        "expected": 6,
+        "extracted": 13.0,
+        "question_id": "q10"
+      }
+    ],
+    "int4_bnb_nf4": [
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 4.25,
+        "extracted": 4.25,
+        "question_id": "q01"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 78,
+        "extracted": 78.0,
+        "question_id": "q02"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 74.8,
+        "extracted": 74.8,
+        "question_id": "q03"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 4,
+        "extracted": 4.0,
+        "question_id": "q04"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": false,
+        "expected": 8,
+        "extracted": 15.0,
+        "question_id": "q05"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 1102.5,
+        "extracted": 1102.5,
+        "question_id": "q06"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 42,
+        "extracted": 42.0,
+        "question_id": "q07"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 20,
+        "extracted": 20.0,
+        "question_id": "q08"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": false,
+        "expected": 10,
+        "extracted": 17.0,
+        "question_id": "q09"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": false,
+        "expected": 6,
+        "extracted": 13.0,
+        "question_id": "q10"
+      }
+    ],
+    "int8_bnb": [
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 4.25,
+        "extracted": 4.25,
+        "question_id": "q01"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 78,
+        "extracted": 78.0,
+        "question_id": "q02"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 74.8,
+        "extracted": 74.8,
+        "question_id": "q03"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 4,
+        "extracted": 4.0,
+        "question_id": "q04"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 8,
+        "extracted": 8.0,
+        "question_id": "q05"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 1102.5,
+        "extracted": 1102.5,
+        "question_id": "q06"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 42,
+        "extracted": 42.0,
+        "question_id": "q07"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": true,
+        "expected": 20,
+        "extracted": 20.0,
+        "question_id": "q08"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": false,
+        "expected": 10,
+        "extracted": 17.0,
+        "question_id": "q09"
+      },
+      {
+        "completion_tokens": 200,
+        "correct": false,
+        "expected": 6,
+        "extracted": 13.0,
+        "question_id": "q10"
+      }
+    ]
+  },
+  "summaries": {
+    "fp16": {
+      "accuracy": 0.9,
+      "completion_tokens": 2000,
+      "correct": 9,
+      "questions": 10,
+      "tokens_per_correct": 222.22
+    },
+    "int4_bnb_nf4": {
+      "accuracy": 0.7,
+      "completion_tokens": 2000,
+      "correct": 7,
+      "questions": 10,
+      "tokens_per_correct": 285.71
+    },
+    "int8_bnb": {
+      "accuracy": 0.8,
+      "completion_tokens": 2000,
+      "correct": 8,
+      "questions": 10,
+      "tokens_per_correct": 250.0
+    }
+  }
+}

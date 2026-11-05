@@ -1,0 +1,325 @@
+{
+  "backend": "transformers+bitsandbytes",
+  "model_id": "Qwen/Qwen2.5-0.5B-Instruct",
+  "device": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "versions": {
+    "torch": "2.11.0+cu128",
+    "transformers": "5.15.0",
+    "bitsandbytes": "0.50.2",
+    "python": "3.14.7"
+  },
+  "budget": 384,
+  "questions_file": "level-2-build/questions.json",
+  "scoring": "Build rule: Final answer marker, else last number, tolerance 0.01",
+  "memory_method": "torch.cuda memory_allocated after load; max_memory_allocated across the 10 questions",
+  "summaries": {
+    "fp16": {
+      "questions": 10,
+      "correct": 8,
+      "accuracy": 0.8,
+      "completion_tokens": 2522,
+      "wall_seconds": 45.083,
+      "completion_tokens_per_second": 55.94,
+      "tokens_per_correct": 315.25,
+      "seconds_per_correct": 5.635,
+      "gpu_bytes_after_load": 996322304,
+      "peak_gpu_bytes": 1018233856,
+      "load_seconds": 1.499
+    },
+    "int8_bnb": {
+      "questions": 10,
+      "correct": 6,
+      "accuracy": 0.6,
+      "completion_tokens": 2664,
+      "wall_seconds": 251.311,
+      "completion_tokens_per_second": 10.6,
+      "tokens_per_correct": 444.0,
+      "seconds_per_correct": 41.885,
+      "gpu_bytes_after_load": 631487488,
+      "peak_gpu_bytes": 653112832,
+      "load_seconds": 1.901
+    },
+    "int4_bnb_nf4": {
+      "questions": 10,
+      "correct": 5,
+      "accuracy": 0.5,
+      "completion_tokens": 1302,
+      "wall_seconds": 40.23,
+      "completion_tokens_per_second": 32.36,
+      "tokens_per_correct": 260.4,
+      "seconds_per_correct": 8.046,
+      "gpu_bytes_after_load": 473807872,
+      "peak_gpu_bytes": 496118784,
+      "load_seconds": 1.718
+    }
+  },
+  "comparison": [
+    {
+      "config": "fp16",
+      "label": "FP16 (torch_dtype float16, no quantization)",
+      "correct": 8,
+      "accuracy": 0.8,
+      "completion_tokens": 2522,
+      "completion_tokens_per_second": 55.94,
+      "tokens_per_correct": 315.25,
+      "gpu_bytes_after_load": 996322304,
+      "peak_gpu_bytes": 1018233856,
+      "memory_saving_pct_vs_fp16": null,
+      "accuracy_delta_vs_fp16": null,
+      "throughput_ratio_vs_fp16": null
+    },
+    {
+      "config": "int8_bnb",
+      "label": "INT8 (bitsandbytes load_in_8bit)",
+      "correct": 6,
+      "accuracy": 0.6,
+      "completion_tokens": 2664,
+      "completion_tokens_per_second": 10.6,
+      "tokens_per_correct": 444.0,
+      "gpu_bytes_after_load": 631487488,
+      "peak_gpu_bytes": 653112832,
+      "memory_saving_pct_vs_fp16": 36.62,
+      "accuracy_delta_vs_fp16": -0.2,
+      "throughput_ratio_vs_fp16": 0.189
+    },
+    {
+      "config": "int4_bnb_nf4",
+      "label": "INT4 (bitsandbytes load_in_4bit, NF4, compute float16)",
+      "correct": 5,
+      "accuracy": 0.5,
+      "completion_tokens": 1302,
+      "completion_tokens_per_second": 32.36,
+      "tokens_per_correct": 260.4,
+      "gpu_bytes_after_load": 473807872,
+      "peak_gpu_bytes": 496118784,
+      "memory_saving_pct_vs_fp16": 52.44,
+      "accuracy_delta_vs_fp16": -0.3,
+      "throughput_ratio_vs_fp16": 0.578
+    }
+  ],
+  "rows": {
+    "fp16": [
+      {
+        "question_id": "q01",
+        "expected": 4.25,
+        "extracted": 4.25,
+        "correct": true,
+        "completion_tokens": 203
+      },
+      {
+        "question_id": "q02",
+        "expected": 78,
+        "extracted": 78.0,
+        "correct": true,
+        "completion_tokens": 243
+      },
+      {
+        "question_id": "q03",
+        "expected": 74.8,
+        "extracted": 61.2,
+        "correct": false,
+        "completion_tokens": 236
+      },
+      {
+        "question_id": "q04",
+        "expected": 4,
+        "extracted": 4.0,
+        "correct": true,
+        "completion_tokens": 245
+      },
+      {
+        "question_id": "q05",
+        "expected": 8,
+        "extracted": 8.0,
+        "correct": true,
+        "completion_tokens": 190
+      },
+      {
+        "question_id": "q06",
+        "expected": 1102.5,
+        "extracted": 1102.5,
+        "correct": true,
+        "completion_tokens": 326
+      },
+      {
+        "question_id": "q07",
+        "expected": 42,
+        "extracted": 42.0,
+        "correct": true,
+        "completion_tokens": 254
+      },
+      {
+        "question_id": "q08",
+        "expected": 20,
+        "extracted": 20.0,
+        "correct": true,
+        "completion_tokens": 215
+      },
+      {
+        "question_id": "q09",
+        "expected": 10,
+        "extracted": 10.0,
+        "correct": true,
+        "completion_tokens": 226
+      },
+      {
+        "question_id": "q10",
+        "expected": 6,
+        "extracted": 90.0,
+        "correct": false,
+        "completion_tokens": 384
+      }
+    ],
+    "int8_bnb": [
+      {
+        "question_id": "q01",
+        "expected": 4.25,
+        "extracted": 2.0,
+        "correct": false,
+        "completion_tokens": 228
+      },
+      {
+        "question_id": "q02",
+        "expected": 78,
+        "extracted": 78.0,
+        "correct": true,
+        "completion_tokens": 242
+      },
+      {
+        "question_id": "q03",
+        "expected": 74.8,
+        "extracted": 6.8,
+        "correct": false,
+        "completion_tokens": 259
+      },
+      {
+        "question_id": "q04",
+        "expected": 4,
+        "extracted": 4.0,
+        "correct": true,
+        "completion_tokens": 243
+      },
+      {
+        "question_id": "q05",
+        "expected": 8,
+        "extracted": 8.0,
+        "correct": true,
+        "completion_tokens": 195
+      },
+      {
+        "question_id": "q06",
+        "expected": 1102.5,
+        "extracted": 1102.5,
+        "correct": true,
+        "completion_tokens": 279
+      },
+      {
+        "question_id": "q07",
+        "expected": 42,
+        "extracted": 42.0,
+        "correct": true,
+        "completion_tokens": 253
+      },
+      {
+        "question_id": "q08",
+        "expected": 20,
+        "extracted": 20.0,
+        "correct": true,
+        "completion_tokens": 227
+      },
+      {
+        "question_id": "q09",
+        "expected": 10,
+        "extracted": 3.0,
+        "correct": false,
+        "completion_tokens": 354
+      },
+      {
+        "question_id": "q10",
+        "expected": 6,
+        "extracted": 48.0,
+        "correct": false,
+        "completion_tokens": 384
+      }
+    ],
+    "int4_bnb_nf4": [
+      {
+        "question_id": "q01",
+        "expected": 4.25,
+        "extracted": 3.0,
+        "correct": false,
+        "completion_tokens": 91
+      },
+      {
+        "question_id": "q02",
+        "expected": 78,
+        "extracted": 78.0,
+        "correct": true,
+        "completion_tokens": 171
+      },
+      {
+        "question_id": "q03",
+        "expected": 74.8,
+        "extracted": 74.8,
+        "correct": true,
+        "completion_tokens": 212
+      },
+      {
+        "question_id": "q04",
+        "expected": 4,
+        "extracted": 4.0,
+        "correct": true,
+        "completion_tokens": 162
+      },
+      {
+        "question_id": "q05",
+        "expected": 8,
+        "extracted": 8.0,
+        "correct": true,
+        "completion_tokens": 180
+      },
+      {
+        "question_id": "q06",
+        "expected": 1102.5,
+        "extracted": 1375.49,
+        "correct": false,
+        "completion_tokens": 9
+      },
+      {
+        "question_id": "q07",
+        "expected": 42,
+        "extracted": 34.0,
+        "correct": false,
+        "completion_tokens": 55
+      },
+      {
+        "question_id": "q08",
+        "expected": 20,
+        "extracted": 240.0,
+        "correct": false,
+        "completion_tokens": 154
+      },
+      {
+        "question_id": "q09",
+        "expected": 10,
+        "extracted": 10.0,
+        "correct": true,
+        "completion_tokens": 229
+      },
+      {
+        "question_id": "q10",
+        "expected": 6,
+        "extracted": 1.0,
+        "correct": false,
+        "completion_tokens": 39
+      }
+    ]
+  },
+  "load_seconds": {
+    "fp16": 1.499,
+    "int8_bnb": 1.901,
+    "int4_bnb_nf4": 1.718
+  },
+  "worker_notes": {},
+  "failed_routes": []
+}
