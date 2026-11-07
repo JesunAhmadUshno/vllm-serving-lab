@@ -1,0 +1,48 @@
+name: Pages
+
+# Builds the live dashboard in site/ from the committed level-*/ result files and publishes it to GitHub Pages
+# at the repo root (https://jesunahmadushno.github.io/vllm-serving-lab/). It replaces the earlier legacy
+# Jekyll page rendered from docs/index.md, a short text summary whose content the dashboard now carries;
+# docs/index.md stays in the repo. Requires the Pages source to be set to "GitHub Actions".
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'level-*/**', 'ROADMAP.md', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+        working-directory: site
+      - run: npm run build
+        working-directory: site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
