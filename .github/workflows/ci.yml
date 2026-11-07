@@ -34,3 +34,5 @@ jobs:
         run: python -m unittest tests.test_deep_quant -v
       - name: Deep runner (fake backend, mechanics only)
         run: python level-3-deep/run_deep.py
+      - name: Significance unit tests (Wilson, exact McNemar)
+        run: python -m unittest tests.test_significance -v

@@ -8,3 +8,8 @@ models/
 .env
 *.key
 secrets/
+
+# live dashboard build output
+site/node_modules/
+site/dist/
+site/.rubric/
