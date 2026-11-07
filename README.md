@@ -1,5 +1,7 @@
 # vllm-serving-lab
 
+Live dashboard: https://jesunahmadushno.github.io/vllm-serving-lab/ (KV-cache, paging and batching simulator in the browser, plus the recorded budget, load-test and quantization results with Wilson intervals and exact McNemar tests; source in site/).
+
 LLM inference and serving, expanded in v3 to an inference optimisation lab: vLLM and SGLang, speculative decoding, KV-cache study, one benchmark harness.
 
 Status: Learn DONE, Build DONE, Deep DONE, v1.0, 2026-11-05. Learn: simulated on CPU, no real model served. Build: a real open model (Qwen/Qwen2.5-0.5B-Instruct) served through an OpenAI-compatible API on BlackBox (RTX 5050), a thinking-budget study at three budgets, and a concurrent load test. Deep (compressed): a quantized-serving comparison, FP16 against bitsandbytes INT8 and INT4 NF4, same model, same 10 questions, budget 384, measured on BlackBox, plus the written thinking rule. The engine is Transformers on PyTorch, not vLLM (the node is Windows with no WSL); that substitution is named in level-2-build/README.md and stays the largest grade deduction. The rest of the v2 Deep scope is the v1.1 backlog in ROADMAP.md.
