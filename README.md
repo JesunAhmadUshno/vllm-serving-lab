@@ -1,79 +1,85 @@
 # vllm-serving-lab
 
-Live dashboard: https://jesunahmadushno.github.io/vllm-serving-lab/ (KV-cache, paging and batching simulator in the browser, plus the recorded budget, load-test and quantization results with Wilson intervals and exact McNemar tests; source in site/).
+**Question.** On one consumer GPU, what does a served open model's
+generation budget cost in accuracy and tokens per correct answer, and
+what does load-time quantization cost against FP16 in accuracy, memory
+and throughput?
 
-LLM inference and serving, expanded in v3 to an inference optimisation lab: vLLM and SGLang, speculative decoding, KV-cache study, one benchmark harness.
+**Headline.** Served through this repo's OpenAI-compatible API on one
+RTX 5050 laptop GPU, Qwen2.5-0.5B-Instruct answered 8 of 10 questions
+at a 384-token budget (Wilson 95% interval 0.49 to 0.94) and 0 of 10 at
+128 (exact McNemar p = 0.0078); bitsandbytes INT8 and INT4 NF4 cut GPU
+memory by 36.62 and 52.44 percent, and their lower scores (6 and 5 of
+10) cannot be told apart from FP16 at n = 10 (p = 0.5 and 0.375). The
+engine is Transformers on PyTorch: vLLM has not run here.
 
-Status: Learn DONE, Build DONE, Deep DONE, v1.0, 2026-11-05. Learn: simulated on CPU, no real model served. Build: a real open model (Qwen/Qwen2.5-0.5B-Instruct) served through an OpenAI-compatible API on BlackBox (RTX 5050), a thinking-budget study at three budgets, and a concurrent load test. Deep (compressed): a quantized-serving comparison, FP16 against bitsandbytes INT8 and INT4 NF4, same model, same 10 questions, budget 384, measured on BlackBox, plus the written thinking rule. The engine is Transformers on PyTorch, not vLLM (the node is Windows with no WSL); that substitution is named in level-2-build/README.md and stays the largest grade deduction. The rest of the v2 Deep scope is the v1.1 backlog in ROADMAP.md.
-Project: P03. Fleet node: BlackBox (GPU). Wave: Wave 3.
+**Field.** Systems and infrastructure, reliability. **Job family.** ML
+inference and serving engineering.
 
-## Start here
+**Verdict.** Functional, not pre-registered. Tests pass in CI on Python
+3.11 and 3.12, the deterministic result files regenerate unchanged in
+CI, and the served model ran end to end on the GPU node with its
+recorded runs committed (level-2-build/results_real.json,
+level-3-deep/results_quant.json). No plan with hypotheses was locked
+before the runs, so the repo is capped at Functional (PROPOSAL.md).
 
-1. Read SPEC.md for scope and acceptance criteria.
-2. Read DOSSIER.md for the past, present, and future of this problem (v1).
-3. Read NOVELTY.md for the proposed novelty (DRAFT, pending the Jev claim_check gate).
-4. Start at level-1-learn/README.md, then level-2-build, then level-3-deep.
+Live dashboard: https://jesunahmadushno.github.io/vllm-serving-lab/
 
-## Level map
+## Reproduce
 
-- Level 1, Learn: the core idea, built small and clean, with a teaching path.
-- Level 2, Build: a real working system other people can run.
-- Level 3, Deep: benchmarks, optimization, evaluation, hard cases.
+```text
+python3 -m unittest discover -s tests -p "test_*.py" -v
+python3 level-1-learn/run_learn.py
+python3 level-2-build/run_build.py
+python3 level-3-deep/run_deep.py
+python3 level-3-deep/significance.py
+git diff --exit-code -- level-1-learn/results_learn.json level-2-build/results_build.json level-3-deep/results_deep.json level-3-deep/results_significance.json
+```
 
-## Benchmarks
+Python 3.11 or 3.12, standard library only, CPU only, seconds. The
+runners use a deterministic fake backend for the serving mechanics; a
+clean `git diff` means the committed results were reproduced.
+`significance.py` recomputes the headline intervals and p values from
+the recorded GPU rows. The GPU runs themselves (`level-2-build/run_real.py`,
+`level-3-deep/run_quant.py`) need a CUDA GPU with torch, transformers
+and bitsandbytes and are not run in CI (REPORT.md, Build and Deep).
 
-| Test | Result |
-| --- | --- |
-| Learn: KV bytes per token, example config 32 layers, 8 KV heads, head_dim 128, fp16 (simulated, method in level-1-learn/README.md) | 131,072 bytes per token |
-| Learn: 12 labelled requests, prompt / thinking / answer tokens (simulated) | 1,470 / 1,590 / 915, total 3,975 tokens, KV total 521,011,200 bytes |
-| Learn: paged blocks of 16 vs contiguous 256 token slab, waste tokens (simulated) | paged 73 waste of 4,048 allocated; contiguous 1,657 waste of 5,632 allocated |
-| Learn: token-step batching, 32 tokens per step budget (simulated, deterministic) | 79 steps for 2,505 output tokens, 31.708861 tokens per step (not tokens per second) |
-| Learn: unit tests | 20 tests in tests/test_learn_serving.py, all passing, plus scaffold smoke test |
-| Build: thinking-budget study, budget 32 / 128 / 384 tokens (real model, BlackBox RTX 5050, greedy, 10 questions) | 0 of 10 / 0 of 10 / 8 of 10 correct; every generation capped at 32 and 128; at 384, 315.25 tokens and about 7.2 seconds per correct answer |
-| Build: stop rule at the Final answer line (measured experiment) | never fired: the model ends with a boxed value or prose, not the instructed line; tokens per correct unchanged at 315.25 |
-| Build: load test, 12 requests, concurrency 4, max 128 tokens | 12 of 12 succeeded, 0.477 requests per second, 61.05 completion tokens per second, p50 8.2146 s, p95 9.0854 s |
-| Build: unit tests | 15 tests in tests/test_build_serving.py (API, streaming, usage math, extraction, study, load test), all passing |
-| Deep: quantized comparison, FP16 (real model, BlackBox RTX 5050, greedy, 10 questions, budget 384) | 8 of 10 correct, 2,522 completion tokens, 55.94 tokens per second, 996,322,304 GPU bytes after load |
-| Deep: quantized comparison, INT8 bitsandbytes load_in_8bit (same run) | 6 of 10 correct, 2,664 tokens, 10.60 tokens per second, 631,487,488 GPU bytes after load (36.62 percent smaller than FP16) |
-| Deep: quantized comparison, INT4 bitsandbytes load_in_4bit NF4 (same run) | 5 of 10 correct, 1,302 tokens, 32.36 tokens per second, 473,807,872 GPU bytes after load (52.44 percent smaller than FP16) |
-| Deep: unit tests | 14 tests in tests/test_deep_quant.py (extraction, summary math, comparison deltas, fake run, error lines), all passing |
+## Lifecycle
 
-## Novelty
+- Question: DONE 2026-11-04
+- Proposal: OPEN
+- Baseline: DONE 2026-11-05
+- Build: DONE 2026-11-05
+- Evaluate: OPEN
+- Report: OPEN
+- Review: OPEN
+- Release: OPEN
 
-PROPOSED. See NOVELTY.md. The novelty text is a draft until the Jev claim_check gate passes on it.
+Proposal is open because no plan was locked before the runs (the
+2026-11-04 scope spec has no hypotheses or pass lines). Evaluate waits
+on a locked confirmatory cycle under the reliability profile, and so
+does Report: REPORT.md records what ran, unscored against hypotheses.
+The 2026-11-07 research review is a read-through, not the re-derivation
+the Review stage requires. The tags v0.1, v0.5 and v1.0 are old ladder
+tags, not a "v1.0 Released" verdict (CHANGELOG.md).
 
-## Fan-out
+## Layout
 
-Written fan-out set for v1.0, dated 2026-11-05, in fanout/. Status
-check: Learn, Build, and Deep are all DONE at v1.0 (this corrects
-any earlier scaffold-era wording that listed Deep as pending).
-Level grades on record: Learn 8,400 of 10,000, Build 8,000 of
-10,000, Deep 7,600 of 10,000. Deep headline result, from
-level-3-deep/README.md: the quantized comparison at budget 384 on
-the same 10 questions scored FP16 8 of 10 at 55.94 tokens per
-second, INT8 6 of 10 at 10.60 tokens per second, and INT4 NF4
-5 of 10 at 32.36 tokens per second. Tests: 49 in total (20 Learn,
-15 Build, 14 Deep), all passing.
+| Path | Role in the standard | What it holds |
+| --- | --- | --- |
+| PROPOSAL.md | Proposal (not locked) | Original scope, proposed novelty, Build and Deep specs, what a locked proposal needs |
+| REPORT.md | Report | Results with evidence, observations, background, the three runs, review, limits, future work |
+| level-1-learn/ | Code, evidence, results | Serving simulator (serving_sim.py, run_learn.py), requests.json, results_learn.json |
+| level-2-build/ | Code, evidence, results | OpenAI-compatible server, budget study, load test (server.py, study.py, load_test.py, run_build.py, run_real.py), questions.json, results_build.json (fake), results_real.json and results_real_stop.json (GPU runs) |
+| level-3-deep/ | Code, evidence, results | Quantized comparison (quant_compare.py, run_deep.py, run_quant.py), significance.py, results_deep.json (fake), results_quant.json (GPU run), results_significance.json |
+| tests/ | Tests | Unit tests per level, significance tests, and the layout test |
+| site/ | Dashboard | Browser simulator and replay of the recorded runs, checked against the result files at build time |
+| docs/decisions/ | Decisions | 0001: why code and results stay in the level folders |
+| fanout/ | Outreach drafts | Blog, tutorial, release notes and other drafts (nothing posted), PUBLICITY.md log |
+| CHANGELOG.md, CITATION.cff, SECURITY.md, LICENSE | Release files | |
 
-- fanout/blog-post.md: the full story, with the main results claim
-  and the honest limits.
-- fanout/tutorial.md: course module P03-vllm-serving-lab. Every
-  command in it was run and verified on 2026-11-05; the GPU-node
-  results are labelled as recorded results, not local commands.
-- fanout/website-page.md: project page copy for jesunahmadushno.com
-  (copy only, not published).
-- fanout/linkedin-post.md: LinkedIn draft, marked DRAFT NOT POSTED,
-  with the link carried as the first-comment line.
-- fanout/paper-candidate.md: brief for the existing CANDIDATE
-  tracker row, "Inference optimisation on consumer hardware
-  paper". Submission is Jesun's tap; nothing is submitted.
-- fanout/release-notes.md: draft notes for the existing releases
-  v0.1, v0.5, and v1.0.
-
-Channel outcomes and per-piece publicity grades (1,000-point
-rubric, ship line 900; overall fan-out grade 9,567 of 10,000) are
-logged in PUBLICITY.md. Drafts are prepared by the loop; the loop
-itself never posts to social, and Threads waits for Jesun's tap.
+No experiments/ or results/ folder: the evidence and results sit next
+to the code that wrote them (docs/decisions/0001).
 
 ## License
 

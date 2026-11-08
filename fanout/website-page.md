@@ -22,8 +22,7 @@ and vLLM needs a Linux runtime. That substitution is named on this
 page, in the repo, and in every level write-up.
 
 Status: v1.0, 2026-11-05. Learn, Build, and compressed Deep are
-done. Total tests: 49, all passing at v1.0. Level grades on record:
-Learn 8,400 of 10,000, Build 8,000 of 10,000, Deep 7,600 of 10,000.
+done. Total tests: 49, all passing at v1.0.
 
 ## Results
 
@@ -41,7 +40,7 @@ Qwen/Qwen2.5-0.5B-Instruct and greedy decoding.
 ## Honest limits
 
 - vLLM itself is not the engine in v1.0. Serving with vLLM on a
-  Linux node is v1.1 item 2 in the repo ROADMAP.md.
+  Linux node is v1.1 item 2 in the repo REPORT.md (Future work).
 - One small model and 10 questions. Accuracy deltas in Deep rest
   on 2 and 3 questions and are not population estimates.
 - One run per Deep config, so throughput has no variance bounds.

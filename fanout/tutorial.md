@@ -35,17 +35,17 @@ git clone https://github.com/JesunAhmadUshno/vllm-serving-lab.git
 cd vllm-serving-lab
 ```
 
-Run the scaffold smoke test:
+Run the layout test (it replaced the scaffold smoke test on 2026-11-08):
 
 ```text
-python3 tests/test_smoke.py
+python3 -m unittest tests.test_layout -v
 ```
 
-Expected: scaffold smoke test PASS, 8 files present.
+Expected: every layout check OK.
 
 ## Step 1: Level 1, Learn, the serving simulator
 
-Read level-1-learn/README.md first. It explains token accounting
+Read REPORT.md (Baseline: Learn) first. It explains token accounting
 with thinking tokens logged apart, KV cache math (bytes per token
 equals 2 times layers times KV heads times head dimension times
 bytes per element), paged blocks of 16 against contiguous slabs of
@@ -79,7 +79,7 @@ Read your results:
 
 ## Step 2: Level 2, Build, the API and the thinking-budget study
 
-Read level-2-build/README.md and level-2-build/BUILD-SPEC.md. The
+Read REPORT.md (Build) and PROPOSAL.md (Build spec). The
 server is an OpenAI-compatible API on the Python standard library
 (GET /health, GET /v1/models, POST /v1/chat/completions, streaming
 with server-sent events, and a usage object with thinking and
@@ -126,7 +126,7 @@ to reproduce these numbers; they need the real model on BlackBox:
 
 ## Step 3: Level 3, Deep, the quantized-serving comparison
 
-Read level-3-deep/README.md and level-3-deep/DEEP-SPEC.md. Deep
+Read REPORT.md (Deep) and PROPOSAL.md (Deep spec). Deep
 compares three precisions on the Build model and questions at
 budget 384: FP16 with no quantization, bitsandbytes INT8
 (load_in_8bit), and bitsandbytes INT4 NF4 (load_in_4bit). It also
@@ -201,7 +201,7 @@ is not part of the 49.
 
 - Learn is simulated. Build and Deep fake runs are mechanics only.
   Only the recorded GPU-node runs are model results.
-- vLLM is not used at any level. The v1.1 backlog in ROADMAP.md
+- vLLM is not used at any level. The v1.1 backlog in REPORT.md (Future work)
   holds serving with vLLM itself, speculative decoding, the
   container drill, and AWQ and GPTQ rows. None of it is in v1.0.
 - Ten questions at one budget is a study, not a benchmark suite.

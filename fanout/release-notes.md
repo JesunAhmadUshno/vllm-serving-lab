@@ -84,10 +84,9 @@ URL: https://github.com/JesunAhmadUshno/vllm-serving-lab/releases/tag/v1.0
   ratio 0.578.
 - Failed routes in the final aggregate run: none.
 - Tests: 14 Deep unit tests, 49 in total with Learn and Build.
-- Grade: Deep 7,600 of 10,000, deductions named in
-  level-3-deep/README.md. The largest is that vLLM itself is
-  still not the engine.
+- Named gaps are in REPORT.md (Deep, Known gaps). The largest is
+  that vLLM itself is still not the engine.
 - The rest of the v2 Deep scope is the v1.1 backlog in
-  ROADMAP.md (speculative decoding, vLLM itself on Linux, the
+  REPORT.md (Future work) (speculative decoding, vLLM itself on Linux, the
   container drill, AWQ and GPTQ rows, larger question sets).
   It is not part of v1.0 and is not claimed by these notes.

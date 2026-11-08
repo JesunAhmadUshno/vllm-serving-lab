@@ -1,13 +1,13 @@
 name: Pages
 
-# Builds the live dashboard in site/ from the committed level-*/ result files and publishes it to GitHub Pages
-# at the repo root (https://jesunahmadushno.github.io/vllm-serving-lab/). It replaces the earlier legacy
-# Jekyll page rendered from docs/index.md, a short text summary whose content the dashboard now carries;
-# docs/index.md stays in the repo. Requires the Pages source to be set to "GitHub Actions".
+# Builds the live dashboard in site/ from the committed level-*/ result files, README.md (verdict) and
+# REPORT.md (v1.1 backlog), and publishes it to GitHub Pages at the repo root
+# (https://jesunahmadushno.github.io/vllm-serving-lab/). It replaced the legacy Jekyll page from docs/index.md,
+# removed on 2026-11-08 (its numbers are in REPORT.md). Requires the Pages source to be set to "GitHub Actions".
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'level-*/**', 'ROADMAP.md', '.github/workflows/pages.yml']
+    paths: ['site/**', 'level-*/**', 'README.md', 'REPORT.md', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:

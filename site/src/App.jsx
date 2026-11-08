@@ -5,7 +5,8 @@ import real from '../../level-2-build/results_real.json';
 import realStop from '../../level-2-build/results_real_stop.json';
 import quant from '../../level-3-deep/results_quant.json';
 import runRealSrc from '../../level-2-build/run_real.py?raw';
-import roadmapMd from '../../ROADMAP.md?raw';
+import reportMd from '../../REPORT.md?raw';
+import readmeMd from '../../README.md?raw';
 import {
   kvBytesPerToken, pagedAllocation, contiguousAllocation, simulateBatch, budgetWhatIf,
   wilson, mcnemarExact, discordant, quantDeltas, kwarg, totalTokens, outputTokens,
@@ -30,7 +31,10 @@ const CONFIGS = quant.comparison.map((c) => ({ ...c, short: c.config.startsWith(
 const QIDS = quant.rows.fp16.map((r) => r.question_id);
 const THINK = requests.reduce((s, r) => s + r.thinking_tokens, 0);
 const OUT = requests.reduce((s, r) => s + outputTokens(r), 0);
-const ROADMAP = roadmapMd.split('\n').filter((l) => /^\d+\.\s/.test(l)).map((l) => l.replace(/^\d+\.\s+/, '').split(':')[0]);
+// The v1.1 backlog is the numbered list under REPORT.md's "### v1.1 backlog" heading; the verdict is README.md's Verdict line.
+const BACKLOG_MD = (reportMd.split(/^### v1\.1 backlog.*$/m)[1] || '').split(/^##+ /m)[0];
+const VERDICT = (readmeMd.match(/\*\*Verdict\.\*\*\s+([^.]+)\./) || [, 'see README'])[1];
+const ROADMAP = BACKLOG_MD.split('\n').filter((l) => /^\d+\.\s/.test(l)).map((l) => l.replace(/^\d+\.\s+/, '').split(':')[0]);
 
 const SECTIONS = [['top', 'Overview', '◎'], ['kv', 'KV cache', '▤'], ['paged', 'Paging', '▦'], ['batch', 'Batching', '⇶'], ['budget', 'Budget', '◷'], ['load', 'Load test', '≋'], ['quant', 'Quantization', '◫'], ['stats', 'Significance', '±'], ['rules', 'Rules', '§'], ['limits', 'Limits', '!']];
 
@@ -51,10 +55,9 @@ function MenuBar() {
     <div className="menubar" role="banner">
       <span className="apple" aria-hidden="true">◆</span>
       <a className="app" href="#top">vLLM Serving Lab</a>
-      <a className="m" href={blob('level-1-learn/README.md')}>Learn</a>
-      <a className="m" href={blob('level-2-build/README.md')}>Build</a>
-      <a className="m" href={blob('level-3-deep/README.md')}>Deep</a>
-      <a className="m" href={blob('ROADMAP.md')}>Roadmap</a>
+      <a className="m" href={blob('README.md')}>README</a>
+      <a className="m" href={blob('REPORT.md')}>Report</a>
+      <a className="m" href={blob('PROPOSAL.md')}>Proposal</a>
       <span className="spacer" />
       <span className="status"><i /> Recorded on {GPU}</span>
       <a href={REPO}>GitHub ↗</a>
@@ -133,6 +136,7 @@ function Hero() {
     <header className="card hero window" id="top" data-title="vllm-serving-lab — README.md">
       <div className="head">
         <p className="eyebrow">Three-level serving study · {MODEL} · {GPU}</p>
+        <span className="pill">Verdict: {VERDICT}</span>
         <span className="pill warn">Transformers on PyTorch behind a vLLM-shaped API, not vLLM (Windows node, no WSL)</span>
       </div>
       <h1>On a laptop GPU, a thinking budget below the answer length bought <em>zero correct answers</em>.</h1>
@@ -600,7 +604,7 @@ function Rules() {
       <ol className="steps" style={{ marginTop: 16 }}>
         {rules.map(([t, d, href], i) => <li key={t}><span className="n">{i + 1}</span><div><b>{t}</b><div className="hint">{d} <a href={href}>See the data</a></div></div></li>)}
       </ol>
-      <p className="hint" style={{ marginTop: 12 }}>Rules distilled from <a href={blob('level-3-deep/README.md')}>level-3-deep/README.md</a>. They are drawn from one model and {N_Q} questions.</p>
+      <p className="hint" style={{ marginTop: 12 }}>Rules distilled from <a href={blob('REPORT.md')}>REPORT.md</a> (Deep, the thinking rule). They are drawn from one model and {N_Q} questions.</p>
     </section>
   );
 }
@@ -615,9 +619,9 @@ function Limits() {
     ['Scoring heuristic', 'Answers are extracted by rule (final-answer marker, else last number) with no human-checked error rate.'],
   ];
   const docs = [
-    ['level-1-learn/README.md', 'Learn', 'Simulator method'], ['level-2-build/README.md', 'Build', 'Serving, study, load test'],
-    ['level-3-deep/README.md', 'Deep', 'Quantization and the rule'], ['docs/research-review.md', 'Research review', 'Rigor grade and open gaps'],
-    ['ROADMAP.md', 'Roadmap', 'v1.1 backlog'], ['releases', 'Releases', 'Tagged versions'],
+    ['README.md', 'README', 'Question, headline, verdict'], ['PROPOSAL.md', 'Proposal', 'Scope and specs (not locked)'],
+    ['REPORT.md', 'Report', 'Method, results, limits'], ['CHANGELOG.md', 'Changelog', 'What changed, when'],
+    ['docs/decisions/0001-keep-level-folders.md', 'Decisions', 'Hard-to-reverse choices'], ['releases', 'Releases', 'Tagged versions'],
   ];
   return (
     <section id="limits" className="card window reveal" data-title="limits_and_roadmap.md">
@@ -626,7 +630,7 @@ function Limits() {
       <div className="grid2" style={{ marginTop: 16 }}>
         {limits.map(([t, d]) => <div className="tile" key={t}><div className="head" style={{ marginBottom: 6 }}><h3>{t}</h3><span className="pill warn">Limit</span></div><p className="hint" style={{ margin: 0, fontSize: 13 }}>{d}</p></div>)}
       </div>
-      <h3 style={{ marginTop: 24 }}>v1.1 backlog (from ROADMAP.md, none of it built)</h3>
+      <h3 style={{ marginTop: 24 }}>v1.1 backlog (from REPORT.md, none of it built)</h3>
       <ol className="backlog">{ROADMAP.map((t) => <li key={t}>{t}</li>)}</ol>
       <div className="docs" style={{ marginTop: 20 }}>
         {docs.map(([p, t, d]) => <a key={p} href={p === 'releases' ? `${REPO}/releases` : blob(p)}><b>{t}</b><small>{d}</small></a>)}

@@ -5,6 +5,8 @@ test on the paired per-question rows (same 10 questions, two configs).
 Reads the committed result files; runs no model.
 
 Usage: python3 level-3-deep/significance.py
+Prints the table and writes level-3-deep/results_significance.json
+(rounded to 4 places, byte-identical across runs; CI checks it).
 """
 import json
 import math
@@ -69,8 +71,17 @@ def significance_report(root):
     return out
 
 
+def rounded(rep):
+    return {"wilson_95": {k: [round(lo, 4), round(hi, 4)] for k, (lo, hi) in rep["wilson"].items()},
+            "paired_exact_mcnemar": [{**p, "p_value": round(p["p_value"], 4)} for p in rep["paired"]]}
+
+
 if __name__ == "__main__":
-    rep = significance_report(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    here = os.path.dirname(os.path.abspath(__file__))
+    rep = significance_report(os.path.dirname(here))
+    with open(os.path.join(here, "results_significance.json"), "w", encoding="utf-8") as f:
+        json.dump(rounded(rep), f, indent=2, sort_keys=True)
+        f.write("\n")
     for name, (lo, hi) in rep["wilson"].items():
         print(f"{name}: Wilson 95% {lo:.3f} to {hi:.3f}")
     for p in rep["paired"]:
