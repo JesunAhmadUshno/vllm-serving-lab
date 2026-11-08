@@ -44,7 +44,7 @@ load test. Compressed Deep ran the quantized-serving comparison at
 the one budget that scored in Build, and wrote the thinking rule the
 Build numbers support.
 
-Future: the rest of the v2 Deep scope is named in ROADMAP.md in the
+Future: the rest of the v2 Deep scope is named in REPORT.md (Future work) in the
 repo as the v1.1 backlog. It includes speculative decoding, serving
 with vLLM itself on a Linux node, the container drill, AWQ and GPTQ
 checkpoint rows, larger question sets, and a batching and KV-cache
@@ -146,16 +146,15 @@ time than the smaller weights save. INT4 NF4 saves 52.44 percent of
 the memory and loses three questions net, but it gains q03, the
 question FP16 gets wrong, and its lower tokens per correct is not an
 efficiency win: it spends less because it finishes, or gives up,
-earlier, and scores less. No row dominates. Grade for Deep: 7,600
-of 10,000, with named deductions in level-3-deep/README.md; the
-largest is that vLLM itself is still not the engine.
+earlier, and scores less. No row dominates. The named gaps are in
+REPORT.md; the largest is that vLLM itself is still not the engine.
 
 The thinking rule the Build numbers support, in short: a budget pays
 only above the model's natural completion length for the task class;
 a budget is a cap, not a target; more thinking does not fix a wrong
 method; cost per correct answer is the unit to watch; and stop rules
 only save money when they match the model's real output format. The
-full rule, with its five points, is in level-3-deep/README.md.
+full rule, with its five points, is in REPORT.md (Deep).
 
 Tests: 14 Deep tests, 49 in total with Learn and Build.
 

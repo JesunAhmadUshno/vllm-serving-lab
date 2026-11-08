@@ -1,17 +1,14 @@
 # PUBLICITY: vllm-serving-lab (P03)
 
 Publicity log under the documentation and publishing standard,
-Section 7. Every finished level produces its written fan-out set,
-each piece graded on the 1,000-point publicity rubric (accuracy 300,
-research 200, gap fit 200, clarity 150, reach format 150), ship line
-900. Drafts are prepared by the loop. Actual social posting follows
+Section 7. Every finished level produces its written fan-out set.
+Drafts are prepared by the loop. Actual social posting follows
 the standing platform rules and gates. The loop itself never posts
 to social.
 
 Fan-out set date: 2026-11-05 (Sprint 2 early work). Project state:
 v1.0, Learn, Build, and compressed Deep done 2026-11-05, 49 tests
-passing. Level grades on record: Learn 8,400 of 10,000, Build
-8,000 of 10,000, Deep 7,600 of 10,000.
+passing.
 
 ## Channel log (2026-11-05)
 
@@ -31,48 +28,6 @@ passing. Level grades on record: Learn 8,400 of 10,000, Build
 | Book chapter | Draft angle in fanout/blog-post.md and SPEC.md ("Serving Is The Product"). Held: chapter draft follows the finished project set; not a published chapter. |
 | Paper candidate | Draft brief in fanout/paper-candidate.md (thinking budgets and quantized serving, cost per correct answer). Submission is Jesun's tap. Nothing submitted, no venue contacted. The tracker row for P03 already exists at CANDIDATE ("Inference optimisation on consumer hardware paper"); this fan-out does not edit the tracker. |
 
-## Publicity grades (1,000-point rubric, ship line 900)
-
-| Piece | Accuracy /300 | Research /200 | Gap fit /200 | Clarity /150 | Reach format /150 | Total /1000 |
-| --- | --- | --- | --- | --- | --- | --- |
-| fanout/blog-post.md | 295 | 190 | 195 | 145 | 140 | 965 |
-| fanout/tutorial.md | 300 | 185 | 195 | 148 | 142 | 970 |
-| fanout/website-page.md | 295 | 180 | 190 | 148 | 145 | 958 |
-| fanout/linkedin-post.md | 290 | 175 | 190 | 145 | 140 | 940 |
-| fanout/paper-candidate.md | 295 | 195 | 195 | 140 | 130 | 955 |
-| fanout/release-notes.md | 298 | 185 | 188 | 144 | 137 | 952 |
-
-All six pieces are at or above the 900 ship line. No piece was
-shipped ungraded. Piece totals sum to 5,740 of 6,000, which scales
-to an overall fan-out grade of 9,567 of 10,000.
-
-## Named deductions (unclosable in this cycle)
-
-- Blog post, minus 35: research is condensed from DOSSIER.md v1,
-  whose prior art section is brief (minus 10 research); the
-  10-question Deep deltas carry reader interpretation risk even
-  stated plainly (minus 5 accuracy); condensed gap framing
-  (minus 5 gap fit, minus 5 clarity); the piece is a held draft
-  with no live channel yet (minus 10 reach).
-- Tutorial, minus 30: research framing is thinner than the blog by
-  design, because the module teaches runs rather than the field
-  (minus 15 research); no worked example beyond the shipped sets
-  (minus 5 gap fit, minus 2 clarity, minus 8 reach).
-- Website page, minus 42: condensed research (minus 20), condensed
-  gap framing (minus 10), and the page is copy only, not a live
-  page (minus 5 reach, minus 5 accuracy, minus 2 clarity).
-- LinkedIn post, minus 60: short form compresses the research and
-  the failure mode detail (minus 25 research, minus 10 accuracy,
-  minus 10 gap fit, minus 5 clarity, minus 10 reach, because the
-  post is a held draft and carries no live link in the body by
-  rule).
-- Paper candidate, minus 45: this is a brief, not a drafted paper
-  (minus 20 reach, minus 10 clarity); venue is classed, not named
-  (minus 5 research, minus 5 gap fit, minus 5 accuracy for the
-  single-node, 10-question evidence base the paper must carry).
-- Release notes, minus 48: notes summarise releases that already
-  exist, so research and gap framing are summary grade (minus 15
-  research, minus 12 gap fit); format is repo-bound (minus 13
   reach, minus 2 accuracy, minus 6 clarity).
 
 ## Jev gate on the fan-out claim (2026-11-05)
@@ -120,21 +75,31 @@ on the GPU node and is not installed in CI.
 | PyPI publishing | Held: needs a PyPI token, a new credential. Jesun's tap only. Not set up. |
 | Social channels (LinkedIn, X, Facebook, Instagram, Threads) | Held: no posts made. The loop never posts to social; Threads waits for Jesun's tap per post under the standing gates. |
 
-Publicity grade for this polish pack log piece, on the 1,000
-point rubric (accuracy 300, research 200, gap fit 200, clarity
-150, reach format 150), ship line 900:
+## Fan-out set (moved from README.md, 2026-11-08)
 
-| Piece | Accuracy /300 | Research /200 | Gap fit /200 | Clarity /150 | Reach /150 | Total /1000 |
-| --- | --- | --- | --- | --- | --- | --- |
-| PUBLICITY.md polish pack section (2026-11-05) | 295 | 180 | 195 | 145 | 95 | 910 |
+Written fan-out set for v1.0, dated 2026-11-05, in fanout/. Deep
+headline result: the quantized comparison at budget 384 on the same 10
+questions scored FP16 8 of 10 at 55.94 tokens per second, INT8 6 of 10
+at 10.60 tokens per second, and INT4 NF4 5 of 10 at 32.36 tokens per
+second. Tests at the time: 49 in total (20 Learn, 15 Build, 14 Deep),
+all passing.
 
-At or above the 900 ship line. Named deductions: research minus
-20, because the pack is a standard applied across repos and this
-section records its application rather than new research; reach
-minus 55, because the docs page is a single summary page in this
-pull request with no live Pages claim yet, the release workflow
-is unproven until the next tag, Greetings live proof is pending,
-PyPI publishing is held, and no social channel carries this piece
-by the standing gates; accuracy minus 5, gap fit minus 5, and
-clarity minus 5 for summary compression of the full pack
-standard, which lives in the batch files.
+- fanout/blog-post.md: the full story, with the main results claim
+  and the honest limits.
+- fanout/tutorial.md: course module P03-vllm-serving-lab. Every
+  command in it was run and verified on 2026-11-05; the GPU-node
+  results are labelled as recorded results, not local commands.
+- fanout/website-page.md: project page copy for jesunahmadushno.com
+  (copy only, not published).
+- fanout/linkedin-post.md: LinkedIn draft, marked DRAFT NOT POSTED,
+  with the link carried as the first-comment line.
+- fanout/paper-candidate.md: brief for the existing CANDIDATE
+  tracker row, "Inference optimisation on consumer hardware
+  paper". Submission is Jesun's tap; nothing is submitted.
+- fanout/release-notes.md: draft notes for the existing releases
+  v0.1, v0.5, and v1.0.
+
+Drafts are prepared by the loop; the loop itself never posts to
+social, and Threads waits for Jesun's tap. The fan-out pieces predate
+the portfolio standard v2; where they say "v1.0" they mean the old
+ladder tag, not the "v1.0 Released" verdict.

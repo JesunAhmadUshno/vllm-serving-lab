@@ -13,7 +13,7 @@ TransformersBackend loads a real open model on the serving node GPU.
 
 vLLM itself is not used: the fleet GPU node is Windows with no WSL,
 and vLLM needs a Linux runtime. The API surface is OpenAI-compatible;
-the engine here is Transformers on PyTorch. See BUILD-SPEC.md.
+the engine here is Transformers on PyTorch. See PROPOSAL.md, Build spec.
 """
 import json
 import time

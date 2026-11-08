@@ -1,0 +1,65 @@
+{
+  "paired_exact_mcnemar": [
+    {
+      "a": "fp16",
+      "b": "int8_bnb",
+      "only_a": 2,
+      "only_b": 0,
+      "p_value": 0.5
+    },
+    {
+      "a": "fp16",
+      "b": "int4_bnb_nf4",
+      "only_a": 4,
+      "only_b": 1,
+      "p_value": 0.375
+    },
+    {
+      "a": "int8_bnb",
+      "b": "int4_bnb_nf4",
+      "only_a": 3,
+      "only_b": 2,
+      "p_value": 1.0
+    },
+    {
+      "a": "budget_128",
+      "b": "budget_384",
+      "only_a": 0,
+      "only_b": 8,
+      "p_value": 0.0078
+    },
+    {
+      "a": "budget_32",
+      "b": "budget_384",
+      "only_a": 0,
+      "only_b": 8,
+      "p_value": 0.0078
+    }
+  ],
+  "wilson_95": {
+    "budget_128": [
+      0.0,
+      0.2775
+    ],
+    "budget_32": [
+      0.0,
+      0.2775
+    ],
+    "budget_384": [
+      0.4902,
+      0.9433
+    ],
+    "fp16": [
+      0.4902,
+      0.9433
+    ],
+    "int4_bnb_nf4": [
+      0.2366,
+      0.7634
+    ],
+    "int8_bnb": [
+      0.3127,
+      0.8318
+    ]
+  }
+}

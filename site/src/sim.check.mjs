@@ -76,7 +76,7 @@ for (const row of quant.comparison.filter((r) => r.config !== 'fp16')) {
   assert.equal(d[row.config].throughputRatio, row.throughput_ratio_vs_fp16, row.config);
 }
 
-// The FP16 Deep rows reproduce the Build 384 rows, as the Deep README states
+// The FP16 Deep rows reproduce the Build 384 rows, as REPORT.md (Deep) states
 assert.deepEqual(quant.rows.fp16.map((r) => [r.question_id, r.extracted, r.completion_tokens]), rows384.map((r) => [r.question_id, r.extracted, r.completion_tokens]));
 
 // Load-test settings come from the runner source

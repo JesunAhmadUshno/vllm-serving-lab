@@ -4,6 +4,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+permissions:
+  contents: read
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -20,19 +22,15 @@ jobs:
         run: python -m pip install ruff
       - name: Lint (ruff, scope in ruff.toml)
         run: ruff check .
-      - name: scaffold smoke test
-        run: python tests/test_smoke.py
-      - name: Learn unit tests
-        run: python -m unittest tests.test_learn_serving -v
+      - name: unit tests and layout test
+        run: python -m unittest discover -s tests -p "test_*.py" -v
       - name: Learn runner
         run: python level-1-learn/run_learn.py
-      - name: Build unit tests
-        run: python -m unittest tests.test_build_serving -v
       - name: Build runner (fake backend, mechanics only)
         run: python level-2-build/run_build.py
-      - name: Deep unit tests
-        run: python -m unittest tests.test_deep_quant -v
       - name: Deep runner (fake backend, mechanics only)
         run: python level-3-deep/run_deep.py
-      - name: Significance unit tests (Wilson, exact McNemar)
-        run: python -m unittest tests.test_significance -v
+      - name: Significance from the recorded GPU rows (Wilson, exact McNemar)
+        run: python level-3-deep/significance.py
+      - name: committed results match a fresh run
+        run: git diff --exit-code -- level-1-learn/results_learn.json level-2-build/results_build.json level-3-deep/results_deep.json level-3-deep/results_significance.json

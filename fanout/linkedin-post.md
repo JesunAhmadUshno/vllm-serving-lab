@@ -42,8 +42,7 @@ beats the bandwidth saving.
 The honest limits, in the post and not in a footnote: one small
 model, 10 questions, one run per Deep config, bitsandbytes
 quantization only, and vLLM itself still to run on a Linux node.
-All of that is named as the v1.1 backlog in the repo. Deep grade
-7,600 of 10,000, deductions published with the numbers.
+All of that is named as the v1.1 backlog in the repo.
 
 If you serve models: what sets your generation budget, a measured
 completion length, or a guess?
