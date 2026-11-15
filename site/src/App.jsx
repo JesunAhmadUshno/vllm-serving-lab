@@ -107,7 +107,7 @@ const Tag = ({ kind }) => <span className={`pill ${kind === 'simulated' ? 'info'
 export default function App() {
   useReveal();
   return (
-    <div className="wrap">
+    <div className="wrap"><a className="skip" href="#top">Skip to content</a>
       <MenuBar />
       <div className="glow" aria-hidden="true" />
       <Hero />
@@ -124,7 +124,7 @@ export default function App() {
       <footer>
         Code: Apache-2.0. Every number on this page is read from the <code>level-*/</code> result files at build time or computed in your browser from them.
         Learn numbers are simulated; Build and Deep numbers are recorded runs on {GPU}, replayed here.
-      </footer>
+      <nav className="support" aria-label="Support this work"><a href="https://github.com/sponsors/JesunAhmadUshno">Sponsor this work</a><a href="https://github.com/sponsors/JesunAhmadUshno">Donate</a><a href="https://buymeacoffee.com/jesun">Buy Me a Coffee</a><a href="https://calendly.com/jesunahmadushno/30min">Work with me</a></nav></footer>
     </div>
   );
 }
@@ -133,7 +133,7 @@ function Hero() {
   const b = real.budgets, fp16 = quant.summaries.fp16, int4 = CONFIGS.find((c) => c.short === 'INT4 NF4');
   const lost = fp16.correct - int4.correct;
   return (
-    <header className="card hero window" id="top" data-title="vllm-serving-lab — README.md">
+    <header className="card hero window" id="top" data-title="vllm-serving-lab - README.md">
       <div className="head">
         <p className="eyebrow">Three-level serving study · {MODEL} · {GPU}</p>
         <span className="pill">Verdict: {VERDICT}</span>
@@ -175,7 +175,7 @@ function KvCalc() {
   const W = narrow ? 340 : 440, rowH = 22, H = requests.length * rowH + 24, l = 40;
   const max = Math.max(...requests.map(totalTokens)) * per;
   return (
-    <section id="kv" className="card window reveal" data-title="kv_cache.calc — Learn">
+    <section id="kv" className="card window reveal" data-title="kv_cache.calc - Learn">
       <div className="head">
         <div>
           <p className="eyebrow">Learn · live calculator</p>
@@ -234,7 +234,7 @@ function Paged() {
   const max = Math.max(...rows.map((r) => Math.max(r.c.allocated, r.p.allocated)));
   const x = (v) => (v / max) * (W - l - 12);
   return (
-    <section id="paged" className="card window reveal" data-title="paged_alloc.sim — Learn">
+    <section id="paged" className="card window reveal" data-title="paged_alloc.sim - Learn">
       <div className="head">
         <div>
           <p className="eyebrow">Learn · live simulation</p>
@@ -287,7 +287,7 @@ function Batch() {
   const maxOut = Math.max(...requests.map(outputTokens));
   const x = (v) => (v / maxOut) * (W - l - r);
   return (
-    <section id="batch" className="card window reveal" data-title="batch_scheduler.sim — Learn">
+    <section id="batch" className="card window reveal" data-title="batch_scheduler.sim - Learn">
       <div className="head">
         <div>
           <p className="eyebrow">Learn · live simulation</p>
@@ -350,7 +350,7 @@ function Budget() {
   const by = (t) => sp.t + (1 - t / MAX_BUDGET) * (SH - sp.t - sp.b);
   const recorded = BUDGETS.map((b) => real.budgets[b]);
   return (
-    <section id="budget" className="card window reveal" data-title="budget_study.json — Build">
+    <section id="budget" className="card window reveal" data-title="budget_study.json - Build">
       <div className="head">
         <div>
           <p className="eyebrow">Build · recorded study + counterfactual cap</p>
@@ -417,7 +417,7 @@ function LoadTest() {
     ['p50 latency (s)', 'p50_latency_seconds', 4, false], ['p95 latency (s)', 'p95_latency_seconds', 4, false], ['Wall time (s)', 'wall_seconds', 3, false],
   ];
   return (
-    <section id="load" className="card window reveal" data-title="load_test.log — Build">
+    <section id="load" className="card window reveal" data-title="load_test.log - Build">
       <div className="head">
         <div>
           <p className="eyebrow">Build · recorded replay</p>
@@ -460,7 +460,7 @@ function Quant() {
   const row = quant.rows[cfg].find((r) => r.question_id === q);
   const sel = CONFIGS.find((c) => c.config === cfg);
   return (
-    <section id="quant" className="card window reveal" data-title="quant_compare.json — Deep">
+    <section id="quant" className="card window reveal" data-title="quant_compare.json - Deep">
       <div className="head">
         <div>
           <p className="eyebrow">Deep · recorded on {GPU}</p>
@@ -547,7 +547,7 @@ function Significance() {
   const W = narrow ? 340 : 760, rowH = 28, H = groups.length * rowH + 26, l = narrow ? 118 : 150, r = 16;
   const sx = (v) => l + v * (W - l - r);
   return (
-    <section id="stats" className="card window reveal" data-title="significance.stats — live">
+    <section id="stats" className="card window reveal" data-title="significance.stats - live">
       <div className="head">
         <div>
           <p className="eyebrow">Live statistics on recorded rows</p>
